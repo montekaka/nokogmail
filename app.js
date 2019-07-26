@@ -16,6 +16,7 @@ app.use(morgan('dev'));
 app.post('/v1/signup', auth.signup);
 app.post('/v1/signin', auth.signin);
 
+// Protect endpoints
 app.use('/v1', auth.protect);
 // setup routers
 app.use('/v1/user', userRouter);
