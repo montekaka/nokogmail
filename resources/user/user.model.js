@@ -9,7 +9,7 @@ const create = (params) => {
 
 const getMany = (params) => {
   // if params is empty {}, then return everything
-  const query = User.find(params);
+  const query = User.find(params).select('-password'); // excludes the password field
   return query.exec();
 }
 

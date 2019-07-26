@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const userSchema = require('./resources/user/user.schema');
+const config = require('./config/index');
 
 const connect = () => {
-  mongoose.connect('mongodb://localhost:27017/nokogmailDB', {useNewUrlParser: true});
+  mongoose.connect(config.dbUrl, {useNewUrlParser: true});
   // const user = new mongoose.Schema(userSchema);
   // const User = mongoose.model("User", user);
   return;
