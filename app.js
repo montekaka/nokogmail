@@ -13,10 +13,10 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 // auth routes
-app.post('/v1/signup', auth.signup);
-app.post('/v1/signin', auth.signin);
+app.post('/api/signup', auth.signup);
+app.post('/api/signin', auth.signin);
 
-// Protect endpoints
+// Protect all endpoints under v1
 app.use('/v1', auth.protect);
 // setup routers
 app.use('/v1/user', userRouter);
