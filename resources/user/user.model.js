@@ -1,6 +1,7 @@
 const models = require('./../index');
 
 const User = models.User;
+const Account = models.Account;
 
 const create = (params) => {
   const user = new User(params);
@@ -14,12 +15,21 @@ const getMany = (params) => {
 }
 
 const get = (params) => {
-  const query = User.findOne(params);
-  return query.exec();
+  return User.findOne(params).exec()
+}
+
+const addAccount = (id, accountData) => {
+  // TODO get auth token from gmail
+  const account = new Account(accountData);  
+  account.save();
+  return User.findByIdAndUpdate(id, {
+    "$push": {"accounts": account}
+  }).exec();
 }
 
 module.exports = {
   create: create,
   get: get,
-  getMany: getMany
+  getMany: getMany,
+  addAccount: addAccount
 }

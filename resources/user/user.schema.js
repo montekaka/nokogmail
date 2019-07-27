@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const accountSchema = require('./../account/account.schema');
 
 const schema = {
     name: {
@@ -16,7 +17,8 @@ const schema = {
       required: true,
       index: true,
       unique: true
-    }, 
+    },
+    accounts: [accountSchema]
 };
 const userSchema = new mongoose.Schema(schema, { timestamps: true })
 

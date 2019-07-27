@@ -26,7 +26,32 @@ const create = (req, res) => {
   })  
 }
 
+const addAccount = (req, res) => {
+  if(!req.body.email || !req.body.token) {
+    return res.status(404).json({error_message: "Email address needed"});
+  }  
+
+  const id = req.params.id;  
+  const params = {
+    token: req.body.token,
+    email: req.body.email    
+  }
+
+  user.get({"_id": id})
+  .then(() => {
+    return user.addAccount(id, params);
+  })
+  .then(() => {
+    res.status(202).json({data: 'Added new email account'});
+  })
+  .catch((err) => {
+    res.status(404).json({error_message: err});
+  })
+
+}
+
 module.exports = {
   create: create,
-  getAll: getAll
+  getAll: getAll,
+  addAccount: addAccount
 }

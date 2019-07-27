@@ -63,8 +63,7 @@ const signin = (req, res) => {
 
 }
 
-const protect = (req, res, next) => {
-  console.log(req.headers.authorization)
+const protect = (req, res, next) => {  
   if(!req.headers.authorization) return res.status(401).json({error_message: "No auth"});
 
   const token = req.headers.authorization.split('Bearer ')[1];  

@@ -5,5 +5,6 @@ const router = Router();
 
 router.route('/').get(Controllers.getAll);
 router.route('/').post(Controllers.create);
+router.route('/:id/account').post(Controllers.addAccount);
 
 module.exports = router;
