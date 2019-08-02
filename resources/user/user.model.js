@@ -18,8 +18,20 @@ const get = (params) => {
   return query.exec();
 }
 
+const update = (id, params) => {
+  const query = User.findByIdAndUpdate(id, params, {new: true});
+  return query.exec();
+}
+
+const remove = (id) => {
+  const query = User.findByIdAndRemove(id);
+  return query.exec();
+}
+
 module.exports = {
   create: create,
   get: get,
-  getMany: getMany
+  getMany: getMany,
+  update: update,
+  remove: remove
 }

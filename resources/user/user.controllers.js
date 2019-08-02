@@ -26,7 +26,41 @@ const create = (req, res) => {
   })  
 }
 
+const update = (req, res) => {
+  // const id = req.params.id;
+  const id = req.user._id.toString();
+  
+  const params = req.body;
+  
+  if (req.params.id !== id) {
+    res.status(404).json({error_message: 'Not auth'});
+  } else {
+    user.update(id, params)
+    .then((data) => {
+      res.status(202).json({data: data});
+    })
+    .catch((err) => {
+      res.status(404).json({error_message: err});
+    }); 
+  }
+
+}
+
+const remove = (req, res) => {
+  const id = req.params.id;
+  
+  user.remove(id)
+  .then((data) => {
+    res.status(202).json({data: data});
+  })
+  .catch((err) => {
+    res.status(404).json({error_message: err});
+  });   
+}
+
 module.exports = {
   create: create,
-  getAll: getAll
+  getAll: getAll,
+  update: update, 
+  remove: remove
 }
