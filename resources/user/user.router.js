@@ -6,5 +6,6 @@ const router = Router();
 router.route('/').get(Controllers.getAll);
 // router.route('/').post(Controllers.create);
 router.route('/:id').put(Controllers.update)
+router.route('/:id').delete(Controllers.remove)
 
 module.exports = router;
