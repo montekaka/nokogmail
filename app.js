@@ -1,5 +1,6 @@
-const bodyParser = require('body-parser');
 const express = require('express');
+const bodyParser = require('body-parser');
+var cors = require('cors')
 const path = require('path');
 const morgan = require('morgan');
 const config = require('./config/index');
@@ -9,8 +10,16 @@ const userRouter = require('./resources/user/user.router');
 
 const app = express();
 
-app.use(bodyParser.json());
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+
+// cors config
+app.use(cors())
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");  
+//   res.header("Access-Control-Allow-Headers", "*");
+//   next();
+// })
 
 // auth routes
 app.post('/api/signup', auth.signup);

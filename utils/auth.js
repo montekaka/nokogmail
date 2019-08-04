@@ -48,7 +48,7 @@ const signin = (req, res) => {
   
   User.findOne({email: req.body.email})
   .then((user) => {
-    return user.checkPassword(req.body.password);
+    return user.checkPassword(req.body.password, user);
   })
   .then((authUser) => {
     return newToken(authUser);
@@ -60,16 +60,16 @@ const signin = (req, res) => {
     console.log(err);
     return res.status(401).json({error_message: "Email and password are not matched."});
   })
-
 }
 
-const protect = (req, res, next) => {  
-  if(!req.headers.authorization) return res.status(401).json({error_message: "No auth"});
-
+const protect = (req, res, next) => {    
+  if(!req.headers.authorization) return res.status(401).json({error_message: "Missing authorization"});
+  
   const token = req.headers.authorization.split('Bearer ')[1];  
   if(!token) {
     return res.status(401).json({error_message: "No auth"});
   }
+
   verifyToken(token)
   .then((payload) => {
     return User.findById(payload.id)
@@ -85,7 +85,7 @@ const protect = (req, res, next) => {
     console.log(err);
     return res.status(401).json({error_message: "No auth"});
   })
-  next();
+  
 }
 
 module.exports = {
