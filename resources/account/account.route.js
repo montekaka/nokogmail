@@ -3,4 +3,6 @@ const Controllers = require('./account.controllers');
 
 const router = Router();
 
-router.route('/').post(Controllers.create);
+router.route('/').get(Controllers.syncAll);
+
+module.exports = router;

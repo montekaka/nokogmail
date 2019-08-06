@@ -7,6 +7,7 @@ const config = require('./config/index');
 const connectDB = require('./db');
 const auth = require('./utils/auth');
 const userRouter = require('./resources/user/user.router');
+const accountRouter = require('./resources/account/account.route');
 
 const app = express();
 
@@ -27,8 +28,11 @@ app.post('/api/signin', auth.signin);
 
 // Protect all endpoints under v1
 app.use('/v1', auth.protect);
+
 // setup routers
 app.use('/v1/user', userRouter);
+app.use('/v1/account', accountRouter)
+
 
 const start = async () => {
   try {

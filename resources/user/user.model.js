@@ -19,12 +19,24 @@ const get = (params) => {
 }
 
 const addAccount = (id, accountData) => {
-  // TODO get auth token from gmail
-  const account = new Account(accountData);  
-  account.save();
-  return User.findByIdAndUpdate(id, {
-    "$push": {"accounts": account}
-  }).exec();
+  const query = User.findOne({"_id": id, "accounts.email": accountData['email']});
+  return query.exec()
+  .then((user) => {
+    if(user) {      
+      let account = user.accounts[0];
+      account.access_token = accountData['access_token'];
+      account.scope = accountData['scope'];
+      account.token_type = accountData['token_type'];
+      account.expiry_date = accountData['expiry_date'];
+      return user.save();
+    } else {
+      const newAccount = new Account(accountData);
+      newAccount.save();      
+      return User.findByIdAndUpdate(id, {
+        "$push": {"accounts": account}
+      }).exec(); 
+    }    
+  });
 }
 
 const update = (id, params) => {

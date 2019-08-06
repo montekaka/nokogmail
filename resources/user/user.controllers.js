@@ -28,17 +28,18 @@ const create = (req, res) => {
 
 const addAccount = (req, res) => {
 
-  if(!req.body.email || !req.body.token || !req.user) {
+  if(!req.body.email || !req.body.access_token || !req.user) {
     return res.status(404).json({error_message: "Email address needed"});
   }
-
-  console.log(req.user._id)
 
   // const id = req.params.id;  
   const id = req.user._id.toString();
   // console.log(id, req.params.id)
   const params = {
-    token: req.body.token,
+    access_token: req.body.access_token,
+    scope: req.body.scope,
+    token_type: req.body.token_type,
+    expiry_date: req.body.expiry_date,
     email: req.body.email    
   }
   

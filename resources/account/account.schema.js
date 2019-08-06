@@ -7,8 +7,17 @@ const schema = {
     index: true,      
     trim: true
   },
-  token: {
+  access_token: {
     type: String
+  },
+  scope: {
+    type: String
+  },
+  token_type: {
+    type: String
+  },
+  expiry_date: {
+    type: Number
   }
 };
 
