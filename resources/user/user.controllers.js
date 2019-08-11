@@ -51,6 +51,7 @@ const addAccount = (req, res) => {
     res.status(202).json({data: 'Added new email account'});
   })
   .catch((err) => {
+    console.log(err)
     res.status(404).json({error_message: err});
   })
 }

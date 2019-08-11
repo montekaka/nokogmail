@@ -31,9 +31,9 @@ const addAccount = (id, accountData) => {
       return user.save();
     } else {
       const newAccount = new Account(accountData);
-      newAccount.save();      
+      newAccount.save();
       return User.findByIdAndUpdate(id, {
-        "$push": {"accounts": account}
+        "$push": {"accounts": newAccount}
       }).exec(); 
     }    
   });

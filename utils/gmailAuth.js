@@ -19,15 +19,16 @@ const authorize = (token, callback) => {
 const listLabels = (auth) => {  
   const gmail = google.gmail({version: 'v1', auth});
   // console.log(gmail.users.labels)
-  gmail.users.labels.list({
+  gmail.users.messages.list({
     userId: 'me',
+    q: "{from:noreply@robinhood.com from:blog@tomtunguz.com}"
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
-    const labels = res.data.labels;
+    const labels = res.data.messages;
     if (labels.length) {
       console.log('Labels:');
       labels.forEach((label) => {
-        console.log(`- ${label.name}`);
+        console.log(label);
       });
     } else {
       console.log('No labels found.');
